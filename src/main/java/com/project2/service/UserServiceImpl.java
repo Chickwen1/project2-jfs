@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
 	public void update(User user) {
 		userDAO.save(user);
 	}
+
+	@Transactional
+	public User findByEmailAndPassword(String email, String password) {
+		return userDAO.findByEmailAndPassword(email, password);
+		
+	}
 }
