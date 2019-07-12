@@ -31,6 +31,13 @@ public class UserController {
 		userService.registerUser(user);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/login")
+	public @ResponseBody ResponseEntity<Object> login(@RequestBody String email, String password) {
+		System.out.println("UserController->login");
+		userService.findByEmailAndPassword(email, password);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
 
 	@PatchMapping("/{id}")
 	public @ResponseBody void update(@PathVariable("id") Integer id,@RequestBody User user) {
