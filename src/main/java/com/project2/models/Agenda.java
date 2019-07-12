@@ -28,19 +28,8 @@ public class Agenda {
 	@Column(name = "DATE")
 	private Date date;
 	
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taskid_gen")
-	@SequenceGenerator(name = "taskid_gen", sequenceName = "PROJECT2_TASK_ID", allocationSize = 1)
-	@Column(name = "TASK_ID")
-	private int taskId;
-	
-	@Column(name = "TASK")
-	private String task;
-	
-	@Column(name = "DURATION")
-	private int duration;
-	
-	@Column(name = "LOCATION")
-	private String location;
+	@Column(name = "AGENDA_TYPE")
+	private String type;
 	
 	@OneToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "USERID")
@@ -51,14 +40,11 @@ public class Agenda {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Agenda(int agendaId, Date date, int taskId, String task, int duration, String location, User user) {
+	public Agenda(int agendaId, Date date, String type, User user) {
 		super();
 		this.agendaId = agendaId;
 		this.date = date;
-		this.taskId = taskId;
-		this.task = task;
-		this.duration = duration;
-		this.location = location;
+		this.type = type;
 		this.user = user;
 	}
 
@@ -78,36 +64,12 @@ public class Agenda {
 		this.date = date;
 	}
 
-	public int getTaskId() {
-		return taskId;
+	public String getType() {
+		return type;
 	}
 
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
-	}
-
-	public String getTask() {
-		return task;
-	}
-
-	public void setTask(String task) {
-		this.task = task;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public User getUser() {
@@ -124,10 +86,7 @@ public class Agenda {
 		int result = 1;
 		result = prime * result + agendaId;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + duration;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((task == null) ? 0 : task.hashCode());
-		result = prime * result + taskId;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -148,19 +107,10 @@ public class Agenda {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (duration != other.duration)
-			return false;
-		if (location == null) {
-			if (other.location != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (task == null) {
-			if (other.task != null)
-				return false;
-		} else if (!task.equals(other.task))
-			return false;
-		if (taskId != other.taskId)
+		} else if (!type.equals(other.type))
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -172,8 +122,8 @@ public class Agenda {
 
 	@Override
 	public String toString() {
-		return "Agenda [agendaId=" + agendaId + ", date=" + date + ", taskId=" + taskId + ", task=" + task
-				+ ", duration=" + duration + ", location=" + location + ", user=" + user + "]";
+		return "Agenda [agendaId=" + agendaId + ", date=" + date + ", type=" + type + ", user=" + user + "]";
 	}
 
+	
 }
