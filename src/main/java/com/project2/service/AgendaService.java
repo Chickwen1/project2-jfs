@@ -14,5 +14,7 @@ public interface AgendaService {
 
 	void delete(Integer id);
 
+	List<Agenda> list();
+
 
 }

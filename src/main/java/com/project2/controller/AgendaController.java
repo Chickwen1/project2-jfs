@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project2.models.Agenda;
+import com.project2.models.Task;
 import com.project2.models.User;
 import com.project2.service.AgendaService;
 
@@ -29,7 +30,7 @@ public class AgendaController {
 
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Object> register(@RequestBody Agenda agenda) {
-		System.out.println("UserController->save");
+		System.out.println("AgendaController->create");
 		agendaService.createAgenda(agenda);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -40,8 +41,14 @@ public class AgendaController {
 		agendaService.update(agenda);
 	}
 
-	@GetMapping("/{id}")
-	public Agenda findOne(@PathVariable("id") Integer id) {
+	@GetMapping()
+	public List<Agenda> list() {
+		List<Agenda> list = agendaService.list();
+		return list;
+	}
+	
+	@GetMapping("/{agendaId}")
+	public Agenda findOne(@PathVariable("agendaId") Integer id) {
 		Agenda agenda = agendaService.findOne(id);
 		return agenda;
 	}

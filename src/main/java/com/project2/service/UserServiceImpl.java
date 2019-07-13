@@ -43,7 +43,11 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public User findByEmailAndPassword(String email, String password) {
-		return userDAO.findByEmailAndPassword(email, password);
+		User user = userDAO.findByEmailAndPassword(email, password);
+		if (user == null) {
+			throw new InvalidLoginException("Invalid Login");
+		}
+		return user;
 		
 	}
 }

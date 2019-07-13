@@ -35,5 +35,10 @@ public class AgendaServiceImpl implements AgendaService {
 	public void update(Agenda agenda) {
 		agendaDAO.save(agenda);
 	}
+
+	@Transactional
+	public List<Agenda> list() {
+		return agendaDAO.list();
+	}
 	
 }
