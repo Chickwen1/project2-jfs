@@ -1,6 +1,5 @@
 package com.project2.models;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,10 +24,7 @@ public class Agenda {
 	@Column(name = "AGENDA_ID")
 	private int agendaId;
 	
-	@Column(name = "DATE")
-	private Date date;
-	
-	@Column(name = "AGENDA_TYPE")
+	@Column(name = "AGENDATYPE")
 	private String type;
 	
 	@OneToOne (fetch = FetchType.EAGER)
@@ -37,13 +33,11 @@ public class Agenda {
 
 	public Agenda() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Agenda(int agendaId, Date date, String type, User user) {
+	public Agenda(int agendaId, String type, User user) {
 		super();
 		this.agendaId = agendaId;
-		this.date = date;
 		this.type = type;
 		this.user = user;
 	}
@@ -54,14 +48,6 @@ public class Agenda {
 
 	public void setAgendaId(int agendaId) {
 		this.agendaId = agendaId;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	public String getType() {
@@ -85,7 +71,6 @@ public class Agenda {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + agendaId;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -102,11 +87,6 @@ public class Agenda {
 		Agenda other = (Agenda) obj;
 		if (agendaId != other.agendaId)
 			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
 		if (type == null) {
 			if (other.type != null)
 				return false;
@@ -122,8 +102,7 @@ public class Agenda {
 
 	@Override
 	public String toString() {
-		return "Agenda [agendaId=" + agendaId + ", date=" + date + ", type=" + type + ", user=" + user + "]";
+		return "Agenda [agendaId=" + agendaId + ", type=" + type + ", user=" + user + "]";
 	}
 
-	
 }

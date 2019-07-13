@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,10 +34,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public @ResponseBody ResponseEntity<Object> login(@RequestBody String email, String password) {
-		System.out.println("UserController->login");
-		userService.findByEmailAndPassword(email, password);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<Object> login(@RequestBody User user) {
+		System.out.println("UserController->login" + user.getEmail()  +"," + user.getPassword() );
+		User u = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		return new ResponseEntity<>(u ,HttpStatus.OK);
 	}
 
 	@PatchMapping("/{id}")

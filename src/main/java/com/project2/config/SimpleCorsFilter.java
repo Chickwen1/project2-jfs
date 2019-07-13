@@ -36,7 +36,7 @@ public class SimpleCorsFilter implements Filter {
         } else {
             chain.doFilter(req, res);
         }
-        
+
     }
 
     @Override

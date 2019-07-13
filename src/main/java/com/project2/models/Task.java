@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,8 +24,8 @@ public class Task {
 	@Column(name = "TASK_ID")
 	private int taskId;
 	
-	@Column(name = "DATE")
-	private Date date;
+	@Column(name = "TASKDATE")
+	private Date taskDate;
 	
 	@Column(name = "TASK_DESCRIPTION")
 	private String taskDescription;
@@ -43,10 +44,10 @@ public class Task {
 		super();
 	}
 
-	public Task(int taskId, Date date, String taskDescription, int duration, String location, Agenda agenda) {
+	public Task(int taskId, Date taskDate, String taskDescription, int duration, String location, Agenda agenda) {
 		super();
 		this.taskId = taskId;
-		this.date = date;
+		this.taskDate = taskDate;
 		this.taskDescription = taskDescription;
 		this.duration = duration;
 		this.location = location;
@@ -61,12 +62,12 @@ public class Task {
 		this.taskId = taskId;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getTaskDate() {
+		return taskDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setTaskDate(Date taskDate) {
+		this.taskDate = taskDate;
 	}
 
 	public String getTaskDescription() {
@@ -106,9 +107,9 @@ public class Task {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((agenda == null) ? 0 : agenda.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + duration;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((taskDate == null) ? 0 : taskDate.hashCode());
 		result = prime * result + ((taskDescription == null) ? 0 : taskDescription.hashCode());
 		result = prime * result + taskId;
 		return result;
@@ -128,17 +129,17 @@ public class Task {
 				return false;
 		} else if (!agenda.equals(other.agenda))
 			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
 		if (duration != other.duration)
 			return false;
 		if (location == null) {
 			if (other.location != null)
 				return false;
 		} else if (!location.equals(other.location))
+			return false;
+		if (taskDate == null) {
+			if (other.taskDate != null)
+				return false;
+		} else if (!taskDate.equals(other.taskDate))
 			return false;
 		if (taskDescription == null) {
 			if (other.taskDescription != null)
@@ -152,9 +153,8 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [taskId=" + taskId + ", date=" + date + ", taskDescription=" + taskDescription + ", duration="
-				+ duration + ", location=" + location + ", agenda=" + agenda + "]";
+		return "Task [taskId=" + taskId + ", taskDate=" + taskDate + ", taskDescription=" + taskDescription
+				+ ", duration=" + duration + ", location=" + location + ", agenda=" + agenda + "]";
 	}
-	
-	
+
 }

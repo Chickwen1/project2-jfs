@@ -21,7 +21,7 @@ public interface TaskDAO extends JpaRepository<Task,Integer> {
 
 	@Modifying
 	@Query("delete from Task where id = :taskId")
-	void delete(@Param("taskId") Integer id);
+	Task delete(@Param("taskId") Integer id);
 	
 //	@Query("select u from User u where u.email = :email and u.password = :password")
 //	Task findByEmailAndPassword(@Param("email") String email, @Param("password") String password);

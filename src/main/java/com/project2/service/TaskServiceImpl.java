@@ -1,5 +1,7 @@
 package com.project2.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,18 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Transactional
-	public void delete(Integer id) {
-		taskDAO.delete(id);
+	public Task delete(Integer id) {
+		
+		return taskDAO.delete(id);
 	}
 	@Override
-	public void update(Task task) {
-		taskDAO.save(task);
+	public Task update(Task task) {
+		return taskDAO.save(task);
+	}
+
+	@Transactional
+	public List<Task> list() {
+		return taskDAO.list();
 	}
 
 }
