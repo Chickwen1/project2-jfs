@@ -36,21 +36,27 @@ public class Task {
 	@Column(name = "LOCATION")
 	private String location;
 	
+	@Column(name = "TASKSTATUS")
+	private String taskStatus;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "AGENDA_ID")
 	private Agenda agenda;
 
 	public Task() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Task(int taskId, Date taskDate, String taskDescription, int duration, String location, Agenda agenda) {
+	public Task(int taskId, Date taskDate, String taskDescription, int duration, String location, String taskStatus,
+			Agenda agenda) {
 		super();
 		this.taskId = taskId;
 		this.taskDate = taskDate;
 		this.taskDescription = taskDescription;
 		this.duration = duration;
 		this.location = location;
+		this.taskStatus = taskStatus;
 		this.agenda = agenda;
 	}
 
@@ -94,6 +100,14 @@ public class Task {
 		this.location = location;
 	}
 
+	public String getTaskStatus() {
+		return taskStatus;
+	}
+
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
+	}
+
 	public Agenda getAgenda() {
 		return agenda;
 	}
@@ -112,6 +126,7 @@ public class Task {
 		result = prime * result + ((taskDate == null) ? 0 : taskDate.hashCode());
 		result = prime * result + ((taskDescription == null) ? 0 : taskDescription.hashCode());
 		result = prime * result + taskId;
+		result = prime * result + ((taskStatus == null) ? 0 : taskStatus.hashCode());
 		return result;
 	}
 
@@ -148,13 +163,20 @@ public class Task {
 			return false;
 		if (taskId != other.taskId)
 			return false;
+		if (taskStatus == null) {
+			if (other.taskStatus != null)
+				return false;
+		} else if (!taskStatus.equals(other.taskStatus))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Task [taskId=" + taskId + ", taskDate=" + taskDate + ", taskDescription=" + taskDescription
-				+ ", duration=" + duration + ", location=" + location + ", agenda=" + agenda + "]";
+				+ ", duration=" + duration + ", location=" + location + ", taskStatus=" + taskStatus + ", agenda="
+				+ agenda + "]";
 	}
 
+	
 }
