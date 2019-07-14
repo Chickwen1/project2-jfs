@@ -19,8 +19,8 @@ public class TaskServiceImpl implements TaskService{
 	private TaskDAO taskDAO;
 
 	@Transactional
-	public void createTask(Task task) {
-		taskDAO.save(task);
+	public Task createTask(Task task) {
+		return taskDAO.save(task);
 	}
 
 	@Transactional
@@ -29,7 +29,7 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Transactional
-	public Task delete(Integer id) {
+	public int delete(int id) {
 		
 		return taskDAO.delete(id);
 	}
@@ -42,5 +42,14 @@ public class TaskServiceImpl implements TaskService{
 	public List<Task> list() {
 		return taskDAO.list();
 	}
+
+	@Transactional
+	public Task save(Task task) {
+		if(task.getTaskId()==-1 || task.getTaskId()==0)
+			return taskDAO.save(task);
+		
+		return null;
+	}
+
 
 }

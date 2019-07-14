@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project2.models.Task;
 
@@ -21,7 +22,10 @@ public interface TaskDAO extends JpaRepository<Task,Integer> {
 
 	@Modifying
 	@Query("delete from Task where id = :taskId")
-	Task delete(@Param("taskId") Integer id);
+	int delete(@Param("taskId") int id);
+
+//	@Query("select t from Task t where t.agenda_id = :id")
+//	List<Task> listTaskByAgenda(@RequestParam("id") int id);
 	
 //	@Query("select u from User u where u.email = :email and u.password = :password")
 //	Task findByEmailAndPassword(@Param("email") String email, @Param("password") String password);

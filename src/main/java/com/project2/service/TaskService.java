@@ -7,14 +7,16 @@ import com.project2.models.User;
 
 public interface TaskService {
 
-	void createTask(Task task);
+	Task createTask(Task task);
 
 	Task update(Task task);
 
 	Task findOne(Integer id);
 
-	Task delete(Integer id);
+	int delete(int id);
 
 	List<Task> list();
+
+	Task save(Task task);
 	
 }

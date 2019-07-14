@@ -29,13 +29,22 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	@PostMapping()
-	public @ResponseBody ResponseEntity<Object> register(@RequestBody Task task) {
-		System.out.println("TaskController->save");
-		taskService.createTask(task);
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
+//	@PostMapping()
+//	public @ResponseBody ResponseEntity<Object> create(@RequestBody Task task) {
+//		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription());
+//		Task newTask = taskService.createTask(task);
+//		return new ResponseEntity<>(newTask, HttpStatus.CREATED);
+//	}
 
+	@PostMapping()
+	public @ResponseBody ResponseEntity<Void> create(@RequestBody Task task) {
+		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription());
+		Task createdTask = taskService.save(task);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id").buildAndExpand(createdTask.getTaskId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<Task> update(@PathVariable("id") Integer id,@RequestBody Task task) {
 		System.out.println("TaskController->update" + id);
@@ -65,9 +74,9 @@ public class TaskController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-		Task task = taskService.delete(id);
-		if(task!=null) {
+	public ResponseEntity<Void> deleteTask(@PathVariable("id") int id) {
+		int task = taskService.delete(id);
+		if(task!=0) {
 		return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
