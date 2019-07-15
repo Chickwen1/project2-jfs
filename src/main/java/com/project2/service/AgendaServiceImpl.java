@@ -18,8 +18,8 @@ public class AgendaServiceImpl implements AgendaService {
 	private AgendaDAO agendaDAO;
 
 	@Transactional
-	public void createAgenda(Agenda agenda) {
-		agendaDAO.save(agenda);
+	public Agenda createAgenda(Agenda agenda) {
+		return agendaDAO.save(agenda);
 	}
 
 	@Transactional
@@ -28,8 +28,8 @@ public class AgendaServiceImpl implements AgendaService {
 	}
 
 	@Transactional
-	public void delete(Integer id) {
-		agendaDAO.delete(id);
+	public int delete(int id) {
+		return agendaDAO.delete(id);
 	}
 	@Override
 	public void update(Agenda agenda) {

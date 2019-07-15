@@ -17,7 +17,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 public class JavaMailUtil {
-public static void sendReimburseMail(String recipient) throws Exception {
+public static void resendPassword(String recipient, String recoveredPassword) throws Exception {
 	System.out.println("Preparing to send email");
 	Properties properties = new Properties();
 	
@@ -29,6 +29,12 @@ public static void sendReimburseMail(String recipient) throws Exception {
 	String myAccountEmail = "saramm123454321@gmail.com";
 	String password = "P@ssword123!";
 	
+
+	properties.setProperty("mail.smtp.user", myAccountEmail);
+	properties.setProperty("mail.smtp.password", password);
+	properties.setProperty("mail.smtp.auth", "true");      
+
+	
 	Session session = Session.getInstance(properties, new Authenticator(){
 		@Override
 		protected PasswordAuthentication getPasswordAuthentication() {
@@ -36,12 +42,12 @@ public static void sendReimburseMail(String recipient) throws Exception {
 		}
 	});
 	
-	Message message = prepareMassage(session, myAccountEmail, recipient);
+	Message message = prepareMassage(session, myAccountEmail, recipient, recoveredPassword);
 	Transport.send(message);
 	System.out.println("Message sent successfully!");
 }
 
-private static Message prepareMassage(Session session, String myAccountEmail, String recipient) {
+private static Message prepareMassage(Session session, String myAccountEmail, String recipient, String recoveredPassword) {
 	try {
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(myAccountEmail));
@@ -49,6 +55,7 @@ private static Message prepareMassage(Session session, String myAccountEmail, St
 		message.setSubject("Your reimbursement has been completed");
 		String reimburseComplete = "<h2>Hello!</h2><br>"
 				+ "Your reimbursement has been completed! Log into view your reimbursement.<br/><br/>"
+				+ "<b>password:<b/> " + recoveredPassword + "<br/><br/>"
 				+ "Thank you!<br/> Team Sara"; 
 		message.setContent(reimburseComplete, "text/html");
 		//message.setText("Hey there, your ");

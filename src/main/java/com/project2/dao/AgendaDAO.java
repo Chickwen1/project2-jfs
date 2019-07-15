@@ -23,7 +23,7 @@ public interface AgendaDAO extends JpaRepository<Agenda, Integer>{
 
 	@Modifying
 	@Query("delete from Agenda where id = :agendaId")
-	void delete(@Param("agendaId") Integer id);
+	int delete(@Param("agendaId") int id);
 //	
 //	@Query("select u from User u where u.email = :email and u.password = :password")
 //	Agenda findByEmailAndPassword(@Param("email") String email, @Param("password") String password);

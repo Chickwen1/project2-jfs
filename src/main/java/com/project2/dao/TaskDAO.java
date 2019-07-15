@@ -12,7 +12,7 @@ import com.project2.models.Task;
 
 public interface TaskDAO extends JpaRepository<Task,Integer> {
 
-	Task save(Task task);
+	//Task save(Task task);
 
 	@Query("select t from Task t")
 	List<Task> list();
@@ -24,9 +24,7 @@ public interface TaskDAO extends JpaRepository<Task,Integer> {
 	@Query("delete from Task where id = :taskId")
 	int delete(@Param("taskId") int id);
 
-//	@Query("select t from Task t where t.agenda_id = :id")
-//	List<Task> listTaskByAgenda(@RequestParam("id") int id);
-	
-//	@Query("select u from User u where u.email = :email and u.password = :password")
-//	Task findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+	@Query("select t from Task t where t.agenda.id = :agendaId")//:agendaId")
+	List<Task> findTaskByAgenda(@Param("agendaId")Integer agendaId);
+
 }

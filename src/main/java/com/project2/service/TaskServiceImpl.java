@@ -17,11 +17,14 @@ public class TaskServiceImpl implements TaskService{
 	
 	@Autowired
 	private TaskDAO taskDAO;
+	
+	@Autowired
+	private AgendaDAO agendaDAO;
 
-	@Transactional
-	public Task createTask(Task task) {
-		return taskDAO.save(task);
-	}
+//	@Transactional
+//	public Task createTask(Task task) {
+//		return taskDAO.save(task);
+//	}
 
 	@Transactional
 	public Task findOne(Integer id) {
@@ -43,13 +46,33 @@ public class TaskServiceImpl implements TaskService{
 		return taskDAO.list();
 	}
 
-	@Transactional
-	public Task save(Task task) {
-		if(task.getTaskId()==-1 || task.getTaskId()==0)
-			return taskDAO.save(task);
-		
+	@Override
+	public Task createTask(Task task) {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Transactional
+	public Task save(Task task) {
+		System.out.println("Agenda ID:" + task.getAgenda().getAgendaId());
+		Agenda agenda = agendaDAO.findOne(task.getAgenda().getAgendaId());
+		task.setAgenda(agenda);
+		return taskDAO.save(task);
+	}
+
+//	@Transactional
+//	public Task createTask(Task task) {
+//		if(task.getTaskId()==-1 || task.getTaskId()==0)
+//			return taskDAO.save(task);
+//		
+//		return null;
+//	}
+
+//	@Override
+//	public Task save(Task task) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 }
