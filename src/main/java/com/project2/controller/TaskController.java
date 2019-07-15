@@ -33,16 +33,16 @@ public class TaskController {
 //	public @ResponseBody ResponseEntity<Object> create(@RequestBody Task task) {
 //		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription());
 //		Task newTask = taskService.createTask(task);
-//		return new ResponseEntity<>(newTask, HttpStatus.CREATED);
+//		return new ResponseEntity<>(newTask, HttpStatus.OK);
 //	}
+	
 
 	@PostMapping()
-	public @ResponseBody ResponseEntity<Void> create(@RequestBody Task task) {
+	public @ResponseBody ResponseEntity<Task> create(@RequestBody Task task) {
 		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription());
 		Task createdTask = taskService.save(task);
+		return new ResponseEntity<Task>(createdTask, HttpStatus.OK);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id").buildAndExpand(createdTask.getTaskId()).toUri();
-		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")
@@ -52,14 +52,6 @@ public class TaskController {
 		return new ResponseEntity<Task>(t, HttpStatus.OK);
 	}
 	
-//	@PostMapping()
-//	public ResponseEntity<Void> update(@PathVariable("id") Integer id, @RequestBody Task task) {
-//		System.out.println("TaskController->update" + id);
-//		Task createdTask = taskService.update(task);
-//		
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTask.getTaskId()).toUri();
-//		return ResponseEntity.created(uri).build();
-//	}
 	
 	@GetMapping()
 	public List<Task> list() {
@@ -69,7 +61,6 @@ public class TaskController {
 
 	@GetMapping("/{id}")
 	public Task findOne(@PathVariable("id") Integer id) {
-
 		return taskService.findOne(id);
 	}
 

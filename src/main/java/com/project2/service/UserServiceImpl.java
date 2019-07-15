@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 		
 	}
+
+	@Transactional
+	public User resendPassword(String email) {
+		return userDAO.resendPassword(email);
+	}
 }

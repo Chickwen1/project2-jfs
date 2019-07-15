@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project2.dao.TaskDAO;
 import com.project2.models.Agenda;
 import com.project2.models.Task;
 import com.project2.models.User;
@@ -27,17 +29,20 @@ public class AgendaController {
 
 	@Autowired
 	private AgendaService agendaService;
+	
+	@Autowired
+	private TaskDAO taskDAO;
 
 	@PostMapping()
-	public @ResponseBody ResponseEntity<Object> register(@RequestBody Agenda agenda) {
-		System.out.println("AgendaController->create");
-		agendaService.createAgenda(agenda);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<Agenda> createAgenda(@RequestBody Agenda agenda) {
+		System.out.println("AgendaController->create "  + agenda.getType() );
+		Agenda a = agendaService.createAgenda(agenda);
+		return new ResponseEntity<Agenda>(a, HttpStatus.OK);
 	}
 
 	@PutMapping("/{id}")
 	public @ResponseBody void update(@PathVariable("id") Integer id,@RequestBody Agenda agenda) {
-		System.out.println("UserController->update" + id);
+		System.out.println("AgendaController->update" + id);
 		agendaService.update(agenda);
 	}
 
@@ -47,16 +52,25 @@ public class AgendaController {
 		return list;
 	}
 	
+	
+	@GetMapping("/{agendaId}/tasks")
+	public List<Task> findTaskByAgenda(@PathVariable("agendaId") Integer agendaId) {
+		List<Task> t = taskDAO.findTaskByAgenda(agendaId);
+		return t;
+	}  
+	
 	@GetMapping("/{agendaId}")
 	public Agenda findOne(@PathVariable("agendaId") Integer id) {
 		Agenda agenda = agendaService.findOne(id);
 		return agenda;
 	}
-
+	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
-		agendaService.delete(id);
-
+	public ResponseEntity<Void> deleteAgenda(@PathVariable("id") int id) {
+		int agenda = agendaService.delete(id);
+		if(agenda !=0) {
+		return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
-
 }

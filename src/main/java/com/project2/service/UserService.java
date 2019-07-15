@@ -18,4 +18,6 @@ public interface UserService {
 	void update(User user);
 
 	User findByEmailAndPassword(String email, String password);
+
+	User resendPassword(String email);
 }

@@ -6,13 +6,13 @@ import com.project2.models.Agenda;
 
 public interface AgendaService {
 
-	void createAgenda(Agenda agenda);
+	Agenda createAgenda(Agenda agenda);
 
 	void update(Agenda agenda);
 
 	Agenda findOne(Integer id);
 
-	void delete(Integer id);
+	int delete(int id);
 
 	List<Agenda> list();
 

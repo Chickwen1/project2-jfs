@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project2.models.User;
 import com.project2.service.UserService;
+import com.project2.util.JavaMailUtil;
 
 @RestController
 @RequestMapping("users")
@@ -37,10 +38,11 @@ public class UserController {
 	public @ResponseBody ResponseEntity<Object> login(@RequestBody User user) {
 		System.out.println("UserController->login" + user.getEmail()  +"," + user.getPassword() );
 		User u = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		System.out.println(u.getUserId());
 		return new ResponseEntity<>(u ,HttpStatus.OK);
 	}
 
-	@PatchMapping("/{id}")
+	@PutMapping("/{id}")
 	public @ResponseBody void update(@PathVariable("id") Integer id,@RequestBody User user) {
 		System.out.println("UserController->update " + id);
 		userService.update(user);
@@ -52,10 +54,23 @@ public class UserController {
 		return list;
 	}
 
-	@GetMapping("/{id}")
-	public User findOne(@PathVariable("id") Integer id) {
-		User user = userService.findOne(id);
-		return user;
+//	@GetMapping("/{id}")
+//	public User findOne(@PathVariable("id") Integer id) {
+//		User user = userService.findOne(id);
+//		return user;
+//	}
+	
+	@GetMapping("/{email}")
+	public ResponseEntity<Object> findEmail(@PathVariable("email") String email) throws Exception {
+		User u = userService.resendPassword(email);
+		if (u != null) {
+			//JavaMailNewEmp.sendNewEmployeeMail("miss.iserah@gmail.com", empEmail, newPassword, firstName, lastName);
+
+			JavaMailUtil.resendPassword("miss.iserah@gmail.com", u.getPassword());
+			return new ResponseEntity<Object>(u ,HttpStatus.OK);
+		}
+		return new ResponseEntity<Object>(u ,HttpStatus.NOT_FOUND);
+		
 	}
 
 	@DeleteMapping("/{id}")
