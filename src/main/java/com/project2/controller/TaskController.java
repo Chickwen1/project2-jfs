@@ -1,6 +1,9 @@
 package com.project2.controller;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +42,8 @@ public class TaskController {
 
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Task> create(@RequestBody Task task) {
-		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription());
+		System.out.println("TaskController->Create" + task.getTaskId()  +"," + task.getTaskDescription() + " " + task.getTaskDate());
+		
 		Task createdTask = taskService.save(task);
 		return new ResponseEntity<Task>(createdTask, HttpStatus.OK);
 		
@@ -47,7 +51,12 @@ public class TaskController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Task> update(@PathVariable("id") Integer id,@RequestBody Task task) {
-		System.out.println("TaskController->update" + id);
+		System.out.println("TaskController->update" + id + " " + task.getTaskDate());
+		System.out.println(task.getTaskDate());
+		
+		LocalDateTime date = task.getTaskDate();
+		date.plusHours(4);
+		task.setTaskDate(date);
 		Task t = taskService.update(task);
 		return new ResponseEntity<Task>(t, HttpStatus.OK);
 	}
