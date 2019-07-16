@@ -1,5 +1,7 @@
 package com.project2.models;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,7 +27,7 @@ public class Task {
 	private int taskId;
 	
 	@Column(name = "TASKDATE")
-	private Date taskDate;
+	private LocalDateTime taskDate;
 	
 	@Column(name = "TASK_DESCRIPTION")
 	private String taskDescription;
@@ -48,8 +50,8 @@ public class Task {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Task(int taskId, Date taskDate, String taskDescription, int duration, String location, String taskStatus,
-			Agenda agenda) {
+	public Task(int taskId, LocalDateTime taskDate, String taskDescription, int duration, String location,
+			String taskStatus, Agenda agenda) {
 		super();
 		this.taskId = taskId;
 		this.taskDate = taskDate;
@@ -68,11 +70,11 @@ public class Task {
 		this.taskId = taskId;
 	}
 
-	public Date getTaskDate() {
+	public LocalDateTime getTaskDate() {
 		return taskDate;
 	}
 
-	public void setTaskDate(Date taskDate) {
+	public void setTaskDate(LocalDateTime taskDate) {
 		this.taskDate = taskDate;
 	}
 
@@ -177,6 +179,7 @@ public class Task {
 				+ ", duration=" + duration + ", location=" + location + ", taskStatus=" + taskStatus + ", agenda="
 				+ agenda + "]";
 	}
+
 
 	
 }

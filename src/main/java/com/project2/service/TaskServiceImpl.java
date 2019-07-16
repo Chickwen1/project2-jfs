@@ -1,6 +1,10 @@
 package com.project2.service;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.transaction.Transactional;
 
@@ -56,6 +60,8 @@ public class TaskServiceImpl implements TaskService{
 	public Task save(Task task) {
 		System.out.println("Agenda ID:" + task.getAgenda().getAgendaId());
 		Agenda agenda = agendaDAO.findOne(task.getAgenda().getAgendaId());
+		
+		
 		task.setAgenda(agenda);
 		return taskDAO.save(task);
 	}
