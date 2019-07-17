@@ -52,11 +52,11 @@ private static Message prepareMassage(Session session, String myAccountEmail, St
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(myAccountEmail));
 		message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-		message.setSubject("Your reimbursement has been completed");
+		message.setSubject("Your password has arrived");
 		String reimburseComplete = "<h2>Hello!</h2><br>"
-				+ "Your reimbursement has been completed! Log into view your reimbursement.<br/><br/>"
+				+ "You have requested your password to be resent, your current password is below.<br/><br/>"
 				+ "<b>password:<b/> " + recoveredPassword + "<br/><br/>"
-				+ "Thank you!<br/> Team Sara"; 
+				+ "Thank you!<br/> Team JFS Planning"; 
 		message.setContent(reimburseComplete, "text/html");
 		//message.setText("Hey there, your ");
 		return message;
