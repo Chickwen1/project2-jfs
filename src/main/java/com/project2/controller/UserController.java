@@ -26,6 +26,15 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	
+	@PostMapping("/adduser")                            
+	public @ResponseBody ResponseEntity<Object> registertwo(@RequestBody User user) {      
+		System.out.println("UserController->save");
+		userService.registertwo(user);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
 
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Object> register(@RequestBody User user) {
@@ -41,12 +50,31 @@ public class UserController {
 		System.out.println(u.getUserId());
 		return new ResponseEntity<>(u ,HttpStatus.OK);
 	}
-
-	@PutMapping("/{id}")
-	public @ResponseBody void update(@PathVariable("id") Integer id,@RequestBody User user) {
+	
+	
+	
+	
+	                          //put has the update ability use the add user ability
+	@PutMapping("/{id}")                //update ability    //this id name is just a place holder for this method
+	public @ResponseBody void update(@PathVariable("id") Integer id,@RequestBody User user) {         //this is asking for user object and integer
 		System.out.println("UserController->update " + id);
 		userService.update(user);
 	}
+	
+	
+	
+    //user is assumed
+    @PutMapping("update/{id}")             //update ability    //this id name is just a place holder for this method
+    public @ResponseBody void userupdate(@PathVariable("id") Integer id,@RequestBody User user) {                //this is asking for user object and integer
+	System.out.println("UserController->update " + id);                          
+	userService.update(user);         //userupdate
+}
+
+	
+	
+	
+	
+	
 
 	@GetMapping()
 	public List<User> list() {
@@ -59,6 +87,14 @@ public class UserController {
 //		User user = userService.findOne(id);
 //		return user;
 //	}
+	
+	@GetMapping("welcome/{id}")                                   //voiloa=tion of rest api but fine for right now
+	public User findOne(@PathVariable("id") Integer id) {
+		User user = userService.findOne(id);
+		return user;
+	}
+	
+	
 	
 	@GetMapping("/{email}")
 	public ResponseEntity<Object> findEmail(@PathVariable("email") String email) throws Exception {
@@ -78,4 +114,16 @@ public class UserController {
 		userService.delete(id);
 
 	}
+	
+	
+	
+	@DeleteMapping("welcome/{id}")          //capture the delete ability from the welcome page                                   //specfic id is given when in the welcome page
+	public void deletesecond(@PathVariable("id") Integer id) {
+		userService.delete(id);
+
+	}
+	
+	
+	
+	
 }

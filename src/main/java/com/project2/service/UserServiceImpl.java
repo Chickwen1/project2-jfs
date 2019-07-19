@@ -22,6 +22,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional
+	public void registertwo(User user) {
+		userDAO.save(user);
+	}
+
+	
+	@Transactional
 	public List<User> list() {
 		return userDAO.list();
 	}
@@ -36,6 +42,18 @@ public class UserServiceImpl implements UserService {
 		userDAO.delete(id);
 	}
 
+	@Transactional
+	public void deletesecond(Integer id) {
+		userDAO.delete(id);
+	}
+	
+	@Override
+	public void userupdate(Integer id,User user) {
+		userDAO.save(user);             //right here the update ability is doing the same as the add user does      //userDAO needs the update ability
+		
+	}
+
+	
 	@Override
 	public void update(User user) {
 		userDAO.save(user);
